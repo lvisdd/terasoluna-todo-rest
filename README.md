@@ -30,5 +30,8 @@ http://terasolunaorg.github.io/guideline/5.0.1.RELEASE/ja/TutorialREST/index.htm
 ### ボイラープレートコードの排除(Lombok)
 http://terasolunaorg.github.io/guideline/5.0.1.RELEASE/ja/Appendix/Lombok.html
 
+### HTTPの仕様に準拠したRESTful Web Serviceの作成
+http://terasolunaorg.github.io/guideline/5.0.1.RELEASE/ja/ArchitectureInDetail/REST.html#httprestful-web-service
+
 ### 例外ハンドリングの実装
 http://terasolunaorg.github.io/guideline/5.0.1.RELEASE/ja/ArchitectureInDetail/REST.html#resthowtouseexceptionhandling
