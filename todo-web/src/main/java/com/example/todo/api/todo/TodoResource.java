@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.example.todo.domain.model.Todo;
-
 import lombok.Data;
 
 @Data

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.Data;
 
 @Data
@@ -50,8 +49,9 @@ public class ApiError implements Serializable {
         return details;
     }
 */
+    
     public void addDetail(ApiError detail) {
         details.add(detail);
     }
-	
+
 }

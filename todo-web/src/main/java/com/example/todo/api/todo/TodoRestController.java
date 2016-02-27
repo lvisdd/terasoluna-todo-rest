@@ -32,7 +32,7 @@ public class TodoRestController {
     @Inject
     Mapper beanMapper;
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.HEAD})
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<TodoResource> getTodos() {
         Collection<Todo> todos = todoService.findAll();
@@ -42,7 +42,7 @@ public class TodoRestController {
         }
         return todoResources;
     }
-	
+    
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     // public TodoResource postTodos(@RequestBody @Validated TodoResource todoResource) {
@@ -56,14 +56,15 @@ public class TodoRestController {
         return ResponseEntity.created(createdUri).body(createdTodoResponse);
     }
     
-    @RequestMapping(value="{todoId}", method = {RequestMethod.GET, RequestMethod.HEAD})
+    @RequestMapping(value="{todoId}", method = { RequestMethod.GET,
+    											 RequestMethod.HEAD })
     @ResponseStatus(HttpStatus.OK)
     public TodoResource getTodo(@PathVariable("todoId") String todoId) {
         Todo todo = todoService.findOne(todoId);
         TodoResource todoResource = beanMapper.map(todo, TodoResource.class);
         return todoResource;
     }
-    
+
     @RequestMapping(value="{todoId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public TodoResource putTodo(@PathVariable("todoId") String todoId) {
@@ -71,13 +72,13 @@ public class TodoRestController {
         TodoResource finishedTodoResource = beanMapper.map(finishedTodo, TodoResource.class);
         return finishedTodoResource;
     }
-    
+
     @RequestMapping(value="{todoId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTodo(@PathVariable("todoId") String todoId) {
         todoService.delete(todoId);
     }
-    
+
     @RequestMapping(value="{todoId}", method = RequestMethod.OPTIONS)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> optionsTodo(
@@ -90,4 +91,5 @@ public class TodoRestController {
                 .allow(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.PUT,
                         HttpMethod.DELETE, HttpMethod.OPTIONS).build();
     }
+    
 }

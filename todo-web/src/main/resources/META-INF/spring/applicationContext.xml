@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    ">
 
     <import resource="classpath:/META-INF/spring/todo-domain.xml" />
 
@@ -13,7 +14,7 @@
     <context:property-placeholder
         location="classpath*:/META-INF/spring/*.properties" />
 
-    <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    <bean id="beanMapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles"
             value="classpath*:/META-INF/dozer/**/*-mapping.xml" />
     </bean>
@@ -29,26 +30,17 @@
     </bean>
 
     <!-- Exception Code Resolver. -->
-<!--     
     <bean id="exceptionCodeResolver"
         class="org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver">
-        Setting and Customization by project.
+        <!-- Setting and Customization by project. -->
         <property name="exceptionMappings">
             <map>
+                <!-- 
                 <entry key="ResourceNotFoundException" value="e.xx.fw.5001" />
                 <entry key="InvalidTransactionTokenException" value="e.xx.fw.7001" />
                 <entry key="BusinessException" value="e.xx.fw.8001" />
                 <entry key=".DataAccessException" value="e.xx.fw.9002" />
-            </map>
-        </property>
-        <property name="defaultExceptionCode" value="e.xx.fw.9001" />
-    </bean>
-     -->
-    <bean id="exceptionCodeResolver"
-        class="org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver">
-        <property name="exceptionMappings">
-            <map>
-                <!-- omitted -->
+                 -->
                 <entry key="ResourceNotFoundException"              value="e.ex.fw.5001" />
                 <entry key="HttpRequestMethodNotSupportedException" value="e.ex.fw.6001" />
                 <entry key="MediaTypeNotAcceptableException"        value="e.ex.fw.6002" />
@@ -63,9 +55,9 @@
                 <entry key="OptimisticLockingFailureException"      value="e.ex.fw.8002" />
                 <entry key="PessimisticLockingFailureException"     value="e.ex.fw.8002" />
                 <entry key="DataAccessException"                    value="e.ex.fw.9002" />
-                <!-- omitted -->
             </map>
         </property>
+        <!-- <property name="defaultExceptionCode" value="e.xx.fw.9001" /> -->
         <property name="defaultExceptionCode" value="e.ex.fw.9001" />
     </bean>
 

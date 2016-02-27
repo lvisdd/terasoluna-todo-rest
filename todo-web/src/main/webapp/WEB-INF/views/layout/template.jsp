@@ -24,8 +24,6 @@
     <tiles:insertAttribute name="header" />
     <tiles:insertAttribute name="body" />
     <hr>
-    <a href="${pageContext.request.contextPath}/resources/static/restapi-tester.html">restapi-tester</a>
-    <hr>
     <p style="text-align: center; background: #e5eCf9;">Copyright
       &copy; 20XX CompanyName</p>
   </div>

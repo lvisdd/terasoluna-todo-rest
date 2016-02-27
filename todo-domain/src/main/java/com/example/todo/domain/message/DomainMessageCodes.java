@@ -1,5 +1,9 @@
 package com.example.todo.domain.message;
 
+/**
+ * Message codes of domain layer message.
+ * @author DomainMessageCodesGenerator
+ */
 public class DomainMessageCodes {
     private DomainMessageCodes() {
         // NOP

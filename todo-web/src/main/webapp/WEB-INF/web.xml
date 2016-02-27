@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     version="3.0">
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>org.terasoluna.gfw.web.logging.HttpSessionEventLoggingListener</listener-class>
     </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -16,6 +15,10 @@
             classpath*:META-INF/spring/spring-security.xml
         </param-value>
     </context-param>
+
+    <listener>
+        <listener-class>org.terasoluna.gfw.web.logging.HttpSessionEventLoggingListener</listener-class>
+    </listener>
 
     <filter>
         <filter-name>MDCClearFilter</filter-name>
@@ -65,27 +68,10 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <servlet>
-        <servlet-name>appServlet</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <!-- ApplicationContext for Spring MVC -->
-            <param-value>classpath*:META-INF/spring/spring-mvc.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>appServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>restApiServlet</servlet-name>
@@ -99,12 +85,27 @@
             <param-name>dispatchOptionsRequest</param-name>
             <param-value>true</param-value>
         </init-param>
-        <load-on-startup>2</load-on-startup>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>restApiServlet</servlet-name>
         <url-pattern>/api/v1/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>appServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <!-- ApplicationContext for Spring MVC -->
+            <param-value>classpath*:META-INF/spring/spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
@@ -121,33 +122,25 @@
         <error-code>500</error-code>
         <location>/WEB-INF/views/common/error/systemError.jsp</location>
     </error-page>
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/common/error/resourceNotFoundError.jsp</location>
     </error-page>
+
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
         <location>/WEB-INF/views/common/error/unhandledSystemError.html</location>
     </error-page>
     
-    <error-page>
-        <error-code>404</error-code>
-        <location>/api/v1/error?errorCode=e.ex.fw.5001</location>
-    </error-page>
-    
-    <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/WEB-INF/views/common/error/unhandledSystemError.json</location>
-    </error-page>
-    
-    <mime-mapping>
-        <extension>json</extension>
-        <mime-type>application/json;charset=UTF-8</mime-type>
-    </mime-mapping>
-    
     <session-config>
         <!-- 30min -->
         <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <!-- <secure>true</secure> -->
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
 </web-app>
