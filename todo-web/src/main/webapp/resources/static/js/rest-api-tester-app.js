@@ -7,7 +7,7 @@ app.controller("main", function($scope, $location, $http, $filter, $log) {
 	var absUrl = $location.absUrl();
 	var restapiEndpointIndex = absUrl.indexOf('/resources/static/restapi-tester.html');
 	$scope.requestPath = $location.absUrl().slice(0, restapiEndpointIndex) + '/api/v1/todos/';
-
+	
     $scope.requestPrefix = REQUEST_PREFIX;
     $scope.requestMethod = REQUEST_METHODS[0];
     // $scope.requestPath = '';

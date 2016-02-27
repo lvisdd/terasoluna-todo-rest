@@ -16,7 +16,8 @@
         <sec:http-basic/>
         <sec:csrf disabled="true"/>
     </sec:http>
-        
+
+    <!-- 
     <sec:http>
         <sec:form-login/>
         <sec:logout/>
@@ -24,8 +25,30 @@
         <sec:custom-filter ref="userIdMDCPutFilter" after="ANONYMOUS_FILTER"/>
         <sec:session-management />
     </sec:http>
+     -->
+    <sec:http>
+        <sec:access-denied-handler ref="accessDeniedHandler"/>
+        <sec:custom-filter ref="userIdMDCPutFilter" after="ANONYMOUS_FILTER"/>
+        <sec:session-management />
+        <sec:form-login
+            login-page="/login.jsp"
+            authentication-failure-url="/login.jsp?error=true" />
+        <sec:logout
+            logout-success-url="/"
+            delete-cookies="JSESSIONID" />
+        <sec:intercept-url pattern="/login.jsp" access="permitAll" />
+        <sec:intercept-url pattern="/**" access="isAuthenticated()" />
+    </sec:http>
 
-    <sec:authentication-manager />
+    <!-- <sec:authentication-manager /> -->
+    <sec:authentication-manager>
+        <!-- com.example.security.domain.service.userdetails.SampleUserDetailsService
+          is scanned by component scan with @Service -->
+        <sec:authentication-provider
+            user-service-ref="sampleUserDetailsService">
+            <sec:password-encoder ref="passwordEncoder" />
+        </sec:authentication-provider>
+    </sec:authentication-manager>
 
     <!-- CSRF Protection -->
     <bean id="accessDeniedHandler"
